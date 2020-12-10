@@ -11,7 +11,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TheSocialMedia.Domain.AggregatesModel.ProfileAggregate;
 using TheSocialMedia.Infra.DataAccess.Context;
+using TheSocialMedia.Infra.DataAccess.Repositories;
 using TheSocialMedia.WebApp.Data;
 
 namespace TheSocialMedia.WebApp
@@ -38,6 +40,8 @@ namespace TheSocialMedia.WebApp
             services.AddControllersWithViews();
 
             services.AddScoped<TheSocialMediaContext, TheSocialMediaContext>();
+            services.AddScoped<ProfileService, ProfileService>();
+            services.AddScoped<IProfileRepository, ProfileSqlDbRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

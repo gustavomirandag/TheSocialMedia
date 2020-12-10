@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TheSocialMedia.Domain.AggregatesModel.PostAggregate;
 using TheSocialMedia.Domain.AggregatesModel.ProfileAggregate;
 
 namespace TheSocialMedia.Infra.DataAccess.Context
@@ -9,6 +10,7 @@ namespace TheSocialMedia.Infra.DataAccess.Context
     public class TheSocialMediaContext : DbContext
     {
         public DbSet<Profile> Profiles { get; set; }
+        public DbSet<Post> Posts { get; set; }
 
         public TheSocialMediaContext()
         {

@@ -8,9 +8,10 @@ namespace TheSocialMedia.Domain.AggregatesModel.ProfileAggregate
     {
         //CRUD - Create, Read, Update and Delete
 
-        public void Create(Profile profile);
+        public int Create(Profile profile);
         public IReadOnlyCollection<Profile> ReadAll();
-        public void Update(Profile profile);
-        public void Delete(Guid id);
+        public Profile Read(Guid id);
+        public int Update(Profile profile);
+        public int Delete(Guid id);
     }
 }

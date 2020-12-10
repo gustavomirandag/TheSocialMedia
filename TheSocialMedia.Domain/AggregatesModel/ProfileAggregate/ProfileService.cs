@@ -8,24 +8,53 @@ namespace TheSocialMedia.Domain.AggregatesModel.ProfileAggregate
     {
         //Functional Requirements: Use Cases
 
-        public void RegisterProfile(Profile profile)
+        private IProfileRepository _repository;
+
+        public ProfileService(IProfileRepository repository)
         {
-            throw new NotImplementedException();
+            _repository = repository;
+        }
+
+        public bool RegisterProfile(Profile profile)
+        {
+            if (String.IsNullOrEmpty(profile.Name))
+                return false;
+
+            profile.Id = Guid.NewGuid();
+            var result = _repository.Create(profile);
+
+            if (result == 0) //Significa que não conseguiu salvar por algum motivo
+                return false;
+
+            return true;
         }
 
         public IReadOnlyCollection<Profile> GetAllProfiles()
         {
-            throw new NotImplementedException();
+            return _repository.ReadAll();
         }
 
-        public void EditProfile(Profile profile)
+        public Profile GetProfile(Guid id)
         {
-            throw new NotImplementedException();
+            return _repository.Read(id);
         }
 
-        public void DeleteProfile(Guid id)
+        public bool EditProfile(Profile profile)
         {
-            throw new NotImplementedException();
+            var result = _repository.Update(profile);
+            if (result == 0)
+                return false;
+            return true;
+        }
+
+        public bool DeleteProfile(Guid id)
+        {
+            var result = _repository.Delete(id);
+
+            if (result == 0)
+                return false;
+
+            return true;
         }
     }
 }
