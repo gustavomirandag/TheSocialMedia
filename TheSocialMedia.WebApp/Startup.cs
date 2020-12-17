@@ -70,7 +70,7 @@ namespace TheSocialMedia.WebApp
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Profiles}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

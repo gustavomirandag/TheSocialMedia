@@ -20,7 +20,6 @@ namespace TheSocialMedia.Domain.AggregatesModel.ProfileAggregate
             if (String.IsNullOrEmpty(profile.Name))
                 return false;
 
-            profile.Id = Guid.NewGuid();
             var result = _repository.Create(profile);
 
             if (result == 0) //Significa que não conseguiu salvar por algum motivo

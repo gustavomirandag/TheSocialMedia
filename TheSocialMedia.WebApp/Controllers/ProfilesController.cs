@@ -24,6 +24,14 @@ namespace TheSocialMedia.WebApp.Controllers
         // GET: Profiles
         public IActionResult Index()
         {
+            var userId = Guid.Parse(User.Claims.ToArray()[0].Value);
+            var profile = _service.GetProfile(userId);
+
+            //Verifica se o usuário logado já preencheu o perfil
+            if (profile != null)
+                //Se já existe, leva o usuário para a página do próprio perfil
+                return RedirectToAction("Details");
+
             return View(_service.GetAllProfiles());
         }
 
@@ -31,7 +39,7 @@ namespace TheSocialMedia.WebApp.Controllers
         public IActionResult Details(Guid? id)
         {
             if (id == null)
-                return NotFound();
+                id = GetUserId();
 
             var profile = _service.GetProfile(id.Value);
 
@@ -56,6 +64,7 @@ namespace TheSocialMedia.WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
+                profile.Id = GetUserId();
                 _service.RegisterProfile(profile);
                 
                 return RedirectToAction(nameof(Index));
@@ -127,6 +136,11 @@ namespace TheSocialMedia.WebApp.Controllers
             _service.DeleteProfile(id);
             
             return RedirectToAction(nameof(Index));
+        }
+
+        private Guid GetUserId()
+        {
+            return Guid.Parse(User.Claims.ToArray()[0].Value);
         }
     }
 }
